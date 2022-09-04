@@ -11,6 +11,9 @@
           <mat-label>Email</mat-label>
           <input matInput type="text" formControlName="email">
         </mat-form-field>
+        <em class="errorMessage" *ngIf="email?.errors?.['email'] && email?.dirty">
+          Email must be a valid email address containing an "@" symbol
+        </em>
       </div>
       <div class="loginInput">
         <mat-form-field class="loginInput" appearance="fill">
