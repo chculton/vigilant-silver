@@ -20,6 +20,7 @@ export class AppComponent {
   }
   
   get email() { return this.loginForm.get('email'); }
+  get password() { return this.loginForm.get('password'); }
 
   onSubmit(): void {
     console.log(this.loginForm.value); 
