@@ -36,6 +36,10 @@
         </button>
       </div>
 
+      <em class="errorMessage" *ngIf="incorrectLogin">
+        Email or Password incorrect! Please try again.
+      </em>
+
       <div class="seperator"><hr class="loginHr"> or <hr class="loginHr"></div>
 
       <div class="loginInput">
