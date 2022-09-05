@@ -1,0 +1,53 @@
+<div class="loginParent">
+    <mat-card class="loginCard">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+          <h2>
+            Welcome!
+          </h2>
+        </div>
+        <div class="loginInput">
+          <mat-form-field class="loginInput" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email">
+          </mat-form-field>
+          <em class="errorMessage" *ngIf="email?.errors?.['email'] && email?.dirty">
+            Email must be a valid email address containing an "@" symbol
+          </em>
+          <em class="errorMessage" *ngIf="email?.errors?.['required'] && email?.touched">
+            You must enter your email in order to login
+          </em>
+        </div>
+        <div class="loginInput">
+          <mat-form-field class="loginInput" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <em class="errorMessage" *ngIf="password?.errors?.['required'] && password?.touched">
+            You must enter your password in order to login
+          </em>
+        </div>
+        <div class="loginInput">
+          <button mat-raised-button color="primary" type='submit' class="loginInput" [disabled]="loginForm.invalid">
+            Login
+          </button>
+        </div>
+  
+        <em class="errorMessage" *ngIf="incorrectLogin">
+          Email or Password incorrect! Please try again.
+        </em>
+  
+        <div class="seperator"><hr class="loginHr"> or <hr class="loginHr"></div>
+  
+        <div class="loginInput">
+          <button mat-raised-button role="button" style="width: 100%">
+            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+            Login with Google
+          </button>
+        </div>
+      </form>    
+    </mat-card>
+  </div>
