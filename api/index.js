@@ -47,6 +47,10 @@ function getUser(email, password) {
   return users.find(u => { return u.email === email && u.password === password }).userId
 }
 
+function getUserDetails(userId) {
+  return employees.find(u => { return u.userId === userId})
+}
+
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -78,14 +82,16 @@ app.post('/login', (req, res) => {
   if (email && password){
     // find user
     const userId = getUser(email, password)
+    const user = getUserDetails(userId)
 
     // generate token
     const jwtBeaerToken = jwt.sign({userId: userId}, accessTokenSecret);
     
     // respond
     res.cookie("SESSIONID", jwtBeaerToken, {httpOnly: true, secure: true});
+    res.cookie("USER", {user: user}, {httpOnly: true, secure: true})
     console.log("cookie created")
-    res.send()
+    res.send({user: user})
   }
   else {
     res.sendStatus(401);

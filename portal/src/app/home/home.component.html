@@ -1,1 +1,104 @@
-<p>home works!</p>
+<div class="homeParent">
+    <div class="homeCard">
+        <mat-toolbar class="navbar" color="primary">
+            Welcome, user!
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item>
+                  <mat-icon>person</mat-icon>
+                  <span>Profile</span>
+                </button>
+                <button mat-menu-item (click)="openDialog()">
+                  <mat-icon>logout</mat-icon>
+                  <span>Log out</span>
+                </button>
+              </mat-menu>
+              
+        </mat-toolbar>
+        <mat-drawer-container class="sideNavContainer">
+          <mat-drawer mode="side"style="width:25%" opened>
+            
+            <mat-accordion  multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      
+                      <mat-panel-title>
+                          <mat-icon>home</mat-icon>
+                          Dashboards
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                
+                    <button mat-button>
+                        Home
+                    </button>
+                  </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    
+                    <mat-panel-title>
+                        <mat-icon>account_circle</mat-icon>
+                        Employment
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+              
+                  <button mat-button>
+                    Information Change
+                  </button>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>payment</mat-icon>
+                        Banking
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+              
+                  <button mat-button>
+                    Bank Accounts
+                  </button>
+                </mat-expansion-panel>
+              </mat-accordion>
+          </mat-drawer>
+          <mat-drawer-content>
+            <mat-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                  <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Change</ng-template>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Name</mat-label>
+                      <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                    </mat-form-field>
+                    <div>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup" label="Review">
+                  <form [formGroup]="secondFormGroup">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Address</mat-label>
+                      <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                             required>
+                    </mat-form-field>
+                    <div>
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step>
+                  <ng-template matStepLabel>Submit</ng-template>
+                  <p>You are now done.</p>
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                  </div>
+                </mat-step>
+              </mat-stepper>
+          </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+</div>
