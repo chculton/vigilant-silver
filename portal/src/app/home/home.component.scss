@@ -50,6 +50,16 @@
     margin: 10px;
 }
 
+.homeSectionCardHeaders {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.homeSectionCardTitle {
+    margin-right: 20px;
+}
+
 @media (max-width: 800px) {
     .navbar {
         width: 100% !important;
