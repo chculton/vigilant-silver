@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,17 +11,19 @@ import {FormBuilder, Validators} from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   user: any;
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
+  homeSwitch = 0;
+  informationChange: FormGroup;
   isLinear = false;
   
   constructor(public dialog: MatDialog,
               private router: Router,
               private _formBuilder: FormBuilder) {
+
+    this.informationChange = new FormGroup({
+      firstName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      phone: new FormControl('')
+    })
 
   }
 
@@ -45,5 +47,9 @@ export class HomeComponent implements OnInit {
 
   navigateTo(page: string) {
     this.router.navigate([page])
+  }
+
+  updateHomeSwitch(newNum: number) {
+    this.homeSwitch = newNum;
   }
 }
