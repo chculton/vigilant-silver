@@ -27,10 +27,10 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.appservice.login(this.loginForm.value).subscribe((response: any) => {
-      console.log(response)
-      if(response.status === 200){
-        localStorage.setItem("user", response.body.user);
-        this.navigateTo()
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(response.body.user));
+        this.incorrectLogin = false;
+        this.navigateTo('home')
       }
       else {
         this.incorrectLogin = true;
@@ -38,7 +38,7 @@ export class LoginComponent {
     });
   }
 
-  navigateTo() {
-    this.router.navigate(['home'])
+  navigateTo(page: string) {
+    this.router.navigate([page])
   }
 }

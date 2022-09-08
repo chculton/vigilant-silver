@@ -24,22 +24,30 @@ export class HomeComponent implements OnInit {
       email: new FormControl('', [Validators.required]),
       phone: new FormControl('')
     })
-
   }
 
   ngOnInit(): void {
-    this.user = localStorage.getItem("user")
-    console.log(this.user)
+    let tempUser = localStorage.getItem("user")
+
+    if(tempUser) {
+      this.user = JSON.parse(tempUser)
+    }
+    else {
+      console.error("Failed to read user from local storage")
+    }
   }
 
   openDialog() {
-    console.log("Opening")
     const dialogRef = this.dialog.open(LogoutDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if (result === true) {
+        // Remove user details from local storage
+        localStorage.removeItem("user")
+
         // TODO: destroy cookie
+
+        // Return user to login
         this.navigateTo('login')
       }
     });

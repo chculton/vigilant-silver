@@ -2,7 +2,7 @@
     <div class="homeCard">
       <!-- NAVBAR -->
         <mat-toolbar class="navbar" color="primary">
-            Welcome, user!
+            Welcome, {{ this.user.name }}!
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -82,10 +82,24 @@
                   </mat-icon>
                 </div>
                 <div class="homeSectionCardHeaders">
-                  <h1>21</h1> days
+                  <h1>09/15/2022</h1>
                 </div>
               </mat-card>
-              <mat-card class="homeSectionCard">Days until work aniversary</mat-card>
+              <mat-card class="homeSectionCard">
+                <div class="homeSectionCardHeaders">
+                  <div class="homeSectionCardTitle">
+                    <h4>
+                      Days until work aniversary
+                    </h4>
+                  </div>
+                  <mat-icon>
+                    more_vert
+                  </mat-icon>
+                </div>
+                <div class="homeSectionCardHeaders">
+                  <h1>115</h1>
+                </div>
+              </mat-card>
             </div>
 
             <!-- Information Change -->

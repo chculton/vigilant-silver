@@ -1,33 +1,9 @@
 const express = require('express')
-const { generateKeyPair } = require('crypto')
-const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 const app = express()
 const port = 3000
 
 app.use(express.json());
-
-const RSA_PRIVATE_KEY = generateKeyPair( 'rsa', {
-  modulusLength: 530,
-  publicExponent: 0x10101,
-  publicKeyEncoding: {
-    type: 'pkcs1',
-    format: 'der'
-  },
-  privateKeyEncoding: {
-    type: 'pkcs8',
-    format: 'der',
-    cipher: 'aes-192-cbc',
-    passphrase: 'Test Authentication'
-  }
-}, (error, publicKey, privateKey) => {
-  if(!error){
-    return privateKey
-  }
-  else {
-    console.log(error)
-  }
-})
 
 users = [
   { userId: '1', email: "t@t.t", password: "t"},
@@ -41,10 +17,16 @@ employees = [
   { userId: '3', name: "Matt"}
 ]
 
-const accessTokenSecret = 'youraccesstokensecret';
+const accessTokenSecret = 'tempaccesstoken';
 
 function getUser(email, password) {
-  return users.find(u => { return u.email === email && u.password === password }).userId
+  const foundUser = users.find(u => { return u.email === email && u.password === password })
+  if (foundUser) {
+    return foundUser.userId
+  }
+  else {
+    return null
+  }
 }
 
 function getUserDetails(userId) {
@@ -71,7 +53,7 @@ const authenticateJWT = (req, res, next) => {
 };
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.sendStatus(200)
 })
 
 app.post('/login', (req, res) => {
@@ -79,9 +61,14 @@ app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  if (email && password){
+  if (email && password) {
     // find user
     const userId = getUser(email, password)
+    if (!userId) {
+      res.sendStatus(401);
+      return;
+    }
+
     const user = getUserDetails(userId)
 
     // generate token
